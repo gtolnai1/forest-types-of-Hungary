@@ -92,9 +92,14 @@
         </div>
         
         <div class="mt-6 flex justify-between items-center">
-            <button onclick="checkTask1()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
-                Check Classification
-            </button>
+            <div class="flex gap-3">
+                <button onclick="checkTask1()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                    Check Classification
+                </button>
+                <button onclick="retryTask1()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg transition-colors shadow-sm">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
             <span id="t1-feedback" class="font-bold hidden"></span>
         </div>
     </section>
@@ -138,9 +143,14 @@
         </div>
 
         <div class="mt-6 flex justify-between items-center">
-            <button onclick="checkTask2()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
-                Check Sequence
-            </button>
+            <div class="flex gap-3">
+                <button onclick="checkTask2()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                    Check Sequence
+                </button>
+                <button onclick="retryTask2()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg transition-colors shadow-sm">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
             <span id="t2-feedback" class="font-bold hidden"></span>
         </div>
     </section>
@@ -184,9 +194,14 @@
         </div>
 
         <div class="mt-6 flex justify-between items-center">
-            <button onclick="checkTask3()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
-                Verify Analysis
-            </button>
+            <div class="flex gap-3">
+                <button onclick="checkTask3()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                    Verify Analysis
+                </button>
+                <button onclick="retryTask3()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg transition-colors shadow-sm">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
             <span id="t3-feedback" class="font-bold hidden"></span>
         </div>
     </section>
@@ -256,9 +271,14 @@
         </div>
 
         <div class="mt-8 flex justify-between items-center">
-            <button onclick="checkTask4()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
-                Check Matches
-            </button>
+            <div class="flex gap-3">
+                <button onclick="checkTask4()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                    Check Matches
+                </button>
+                <button onclick="retryTask4()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg transition-colors shadow-sm">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
             <span id="t4-feedback" class="font-bold hidden"></span>
         </div>
     </section>
@@ -303,9 +323,14 @@
         </div>
 
         <div class="mt-8 flex justify-between items-center">
-            <button onclick="checkTask5()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
-                Submit Answers
-            </button>
+            <div class="flex gap-3">
+                <button onclick="checkTask5()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                    Submit Answers
+                </button>
+                <button onclick="retryTask5()" class="bg-slate-200 hover:bg-slate-300 text-slate-700 font-bold py-2 px-4 rounded-lg transition-colors shadow-sm">
+                    <i class="fas fa-redo"></i> Retry
+                </button>
+            </div>
             <span id="t5-feedback" class="font-bold hidden"></span>
         </div>
     </section>
@@ -365,6 +390,21 @@
         }
     }
 
+    function retryTask1() {
+        const wordbank = document.getElementById('t1-wordbank');
+        const zones = ['climazonal', 'azonal', 'planted'];
+        zones.forEach(zone => {
+            const container = document.getElementById(`t1-zone-${zone}`);
+            const items = container.querySelectorAll('.drag-item');
+            items.forEach(item => {
+                item.classList.remove('correct-anim', 'incorrect-anim');
+                wordbank.appendChild(item);
+            });
+        });
+        wordbank.querySelectorAll('.drag-item').forEach(item => item.classList.remove('correct-anim', 'incorrect-anim'));
+        document.getElementById('t1-feedback').classList.add('hidden');
+    }
+
     // Initialize Sortable logic for Task 2 (Sequence)
     new Sortable(document.getElementById('t2-sequence'), {
         animation: 150,
@@ -401,6 +441,21 @@
         }
     }
 
+    function retryTask2() {
+        const container = document.getElementById('t2-sequence');
+        const items = Array.from(container.querySelectorAll('.drag-item'));
+        
+        // Remove styling
+        items.forEach(item => item.classList.remove('correct-anim', 'incorrect-anim'));
+        
+        // Restore to the original scrambled order provided in the HTML
+        const originalOrder = { "2": 1, "1": 2, "4": 3, "3": 4 };
+        items.sort((a, b) => originalOrder[a.dataset.order] - originalOrder[b.dataset.order]);
+        
+        items.forEach(item => container.appendChild(item));
+        document.getElementById('t2-feedback').classList.add('hidden');
+    }
+
     // Logic for Task 3 (Fill in the blanks)
     function checkTask3() {
         let allCorrect = true;
@@ -435,6 +490,15 @@
             feedback.innerHTML = '<i class="fas fa-times-circle"></i> Read carefully and try again.';
             feedback.classList.add('text-red-600');
         }
+    }
+
+    function retryTask3() {
+        for (let i = 1; i <= 4; i++) {
+            const select = document.getElementById(`t3-q${i}`);
+            select.value = "";
+            select.classList.remove('correct-anim', 'incorrect-anim');
+        }
+        document.getElementById('t3-feedback').classList.add('hidden');
     }
 
     // Initialize Sortable logic for Task 4 (Bilingual Vocabulary)
@@ -497,6 +561,20 @@
         }
     }
 
+    function retryTask4() {
+        const wordbank = document.getElementById('t4-wordbank');
+        vocabZones.forEach(zone => {
+            const container = document.getElementById(`t4-zone-${zone}`);
+            const item = container.querySelector('.drag-item');
+            if (item) {
+                item.classList.remove('correct-anim', 'incorrect-anim');
+                wordbank.appendChild(item);
+            }
+        });
+        wordbank.querySelectorAll('.drag-item').forEach(item => item.classList.remove('correct-anim', 'incorrect-anim'));
+        document.getElementById('t4-feedback').classList.add('hidden');
+    }
+
     // Logic for Task 5 (Azonal Forests Quiz)
     let t5Answers = [-1, -1, -1];
 
@@ -556,6 +634,17 @@
             // Reset state to allow trying again
             t5Answers = [-1, -1, -1];
         }
+    }
+
+    function retryTask5() {
+        t5Answers = [-1, -1, -1];
+        document.querySelectorAll('.quiz-q').forEach(block => {
+            const buttons = block.querySelectorAll('.quiz-btn');
+            buttons.forEach(b => {
+                b.classList.remove('bg-cyan-100', 'border-cyan-400', 'ring-2', 'ring-cyan-500', 'bg-green-200', 'border-green-500', 'ring-green-500', 'bg-red-200', 'border-red-500', 'ring-red-500');
+            });
+        });
+        document.getElementById('t5-feedback').classList.add('hidden');
     }
 </script>
 
