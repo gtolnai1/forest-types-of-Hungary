@@ -102,7 +102,7 @@
     <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200 relative overflow-hidden">
         <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
         <h2 class="text-2xl font-bold mb-2 text-emerald-800">Task 2: Altitude Sequencing</h2>
-        <p class="text-slate-600 mb-6">Arrange these climazonal forests in order of altitude, from the <strong>lowest elevation (plains/foothills) at the top</strong> to the <strong>highest elevation (mountain peaks) at the bottom</strong>.</p>
+        <p class="text-slate-600 mb-6">Arrange these climazonal forests in order of altitude, from the <strong>highest elevation (mountain peaks) at the top</strong> to the <strong>lowest elevation (plains/foothills) at the bottom</strong>.</p>
 
         <div class="flex flex-col md:flex-row gap-6 items-center md:items-stretch">
             <!-- Altitude Indicator -->
@@ -117,19 +117,19 @@
             
             <!-- Sortable List -->
             <div id="t2-sequence" class="flex-grow w-full space-y-3">
-                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="3">
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="2">
                     <span class="font-medium text-lg">Hornbeam-oak forest</span>
                     <i class="fas fa-grip-lines text-slate-400"></i>
                 </div>
-                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="4">
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="1">
                     <span class="font-medium text-lg">Beech forest</span>
                     <i class="fas fa-grip-lines text-slate-400"></i>
                 </div>
-                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="1">
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="4">
                     <span class="font-medium text-lg">Tatar maple-loess oak</span>
                     <i class="fas fa-grip-lines text-slate-400"></i>
                 </div>
-                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="2">
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="3">
                     <span class="font-medium text-lg">Turkey oak-sessile oak</span>
                     <i class="fas fa-grip-lines text-slate-400"></i>
                 </div>
@@ -276,7 +276,7 @@
             feedback.innerHTML = '<i class="fas fa-check-circle"></i> Perfect sequence!';
             feedback.classList.add('text-green-600');
         } else {
-            feedback.innerHTML = '<i class="fas fa-times-circle"></i> Check the altitude order. Remember: Lowest altitude at the top!';
+            feedback.innerHTML = '<i class="fas fa-times-circle"></i> Check the altitude order. Remember: Highest altitude at the top!';
             feedback.classList.add('text-red-600');
         }
     }
