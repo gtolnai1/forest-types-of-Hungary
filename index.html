@@ -51,6 +51,7 @@
             <ul class="list-disc pl-5 space-y-1">
                 <li><strong>Climazonal Forests:</strong> Determined by temperature and rainfall. Includes <em>Turkey oak-sessile oak</em> (cseres-tölgyes), <em>Hornbeam-oak</em> (gyertyános-tölgyes), and <em>Beech</em> (bükkös).</li>
                 <li><strong>Azonal Forests:</strong> Determined by water or topography. Includes <em>Gallery/Riparian forests</em> (ligeterdők), <em>Swamp forests</em> (láperdők), and <em>Sand forests</em> (homoki erdők).</li>
+                <li><strong>Topographical Azonal Forests:</strong> Determined by terrain. Includes <em>Pubescent oak</em> (molyhos tölgyes) on warm southern slopes, and <em>Linden-ash rock forest</em> (hársas-kőrises) preventing soil erosion on scree.</li>
                 <li><strong>Planted / Non-native Forests:</strong> Planted by humans, often damaging the ecosystem. Includes <em>Pine plantations</em> (fenyves ültetvények) and <em>Black locust</em> (fehér akác).</li>
                 <li><strong>Canopy:</strong> The upper layer of leaves in a forest (lombkoronaszint).</li>
                 <li><strong>Shrub layer / Herb layer:</strong> The lower levels of plants (cserjeszint / gyepszint).</li>
@@ -204,6 +205,10 @@
             <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="turkey">Turkey oak-sessile oak</div>
             <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="acacia">Black locust</div>
             <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="riparian">Riparian (Gallery) forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="swamp">Swamp forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="linden">Linden-ash rock forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="pubescent">Pubescent oak</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="alder">Alder</div>
         </div>
 
         <!-- Matching Grid -->
@@ -232,6 +237,22 @@
                 <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Erdeifenyő</div>
                 <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-pine"></div>
             </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Láperdő</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-swamp"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Hársas-kőrises</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-linden"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Molyhos tölgyes</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-pubescent"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Éger</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-alder"></div>
+            </div>
         </div>
 
         <div class="mt-8 flex justify-between items-center">
@@ -239,6 +260,53 @@
                 Check Matches
             </button>
             <span id="t4-feedback" class="font-bold hidden"></span>
+        </div>
+    </section>
+
+    <!-- Task 5: Azonal Forests Quiz -->
+    <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-cyan-500"></div>
+        <h2 class="text-2xl font-bold mb-2 text-cyan-800">Task 5: Azonal Environments Deep-Dive</h2>
+        <p class="text-slate-600 mb-6">Azonal forests are shaped by local conditions like water and soil rather than just the general climate. Answer the questions below by clicking the correct ecological explanation based on the text.</p>
+
+        <div class="space-y-6" id="t5-quiz">
+            <!-- Q1 -->
+            <div class="quiz-q">
+                <h3 class="font-bold text-lg mb-2 text-slate-800">1. Why do linden-ash communities form on scree and rocky slopes?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">They require the high heat reflected from rocks to bloom.</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 1)">They tolerate shallow soil and their roots play a crucial role in preventing soil erosion.</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">They are planted there by humans for fast timber harvesting.</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">They are driven out of the plains by invasive black locust trees.</button>
+                </div>
+            </div>
+            <!-- Q2 -->
+            <div class="quiz-q">
+                <h3 class="font-bold text-lg mb-2 text-slate-800">2. What defines the unique microclimate of sand forests (e.g., in the Kiskunság)?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">They are permanently flooded by rivers several times a year.</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 1)">The surface sand dries out easily, but retains permanent moisture underneath.</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">They receive the highest amount of rainfall in the Carpathian Basin.</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">Their acidic soil prevents any undergrowth from forming.</button>
+                </div>
+            </div>
+            <!-- Q3 -->
+            <div class="quiz-q">
+                <h3 class="font-bold text-lg mb-2 text-slate-800">3. In undrained areas with high groundwater, which tree species typically form swamp forests?</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">Turkey oak and sessile oak</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 1)">Alder and occasionally birch</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">Scots pine and spruce</button>
+                    <button class="quiz-btn text-left p-3 border-2 border-slate-200 rounded-lg hover:bg-slate-50 transition" onclick="selectAnswer(this, 0)">Tatar maple and pedunculate oak</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-between items-center">
+            <button onclick="checkTask5()" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                Submit Answers
+            </button>
+            <span id="t5-feedback" class="font-bold hidden"></span>
         </div>
     </section>
 
@@ -376,7 +444,7 @@
         ghostClass: 'sortable-ghost'
     });
 
-    const vocabZones = ['beech', 'hornbeam', 'turkey', 'riparian', 'acacia', 'pine'];
+    const vocabZones = ['beech', 'hornbeam', 'turkey', 'riparian', 'acacia', 'pine', 'swamp', 'linden', 'pubescent', 'alder'];
     vocabZones.forEach(zone => {
         new Sortable(document.getElementById(`t4-zone-${zone}`), {
             group: {
@@ -426,6 +494,67 @@
         } else {
             feedback.innerHTML = '<i class="fas fa-times-circle"></i> Some matches are incorrect. Try again!';
             feedback.classList.add('text-red-600');
+        }
+    }
+
+    // Logic for Task 5 (Azonal Forests Quiz)
+    let t5Answers = [-1, -1, -1];
+
+    function selectAnswer(btn, isCorrect) {
+        // Find parent question block
+        const questionBlock = btn.closest('.quiz-q');
+        const qIndex = Array.from(document.querySelectorAll('.quiz-q')).indexOf(questionBlock);
+        
+        // Reset all buttons in this question
+        const buttons = questionBlock.querySelectorAll('.quiz-btn');
+        buttons.forEach(b => {
+            b.classList.remove('bg-cyan-100', 'border-cyan-400', 'ring-2', 'ring-cyan-500', 'bg-green-200', 'border-green-500', 'ring-green-500', 'bg-red-200', 'border-red-500', 'ring-red-500');
+        });
+
+        // Highlight selected
+        btn.classList.add('bg-cyan-100', 'border-cyan-400', 'ring-2', 'ring-cyan-500');
+        
+        // Save answer status
+        t5Answers[qIndex] = isCorrect;
+    }
+
+    function checkTask5() {
+        const feedback = document.getElementById('t5-feedback');
+        feedback.classList.remove('hidden', 'text-green-600', 'text-red-600', 'text-amber-600');
+        
+        if (t5Answers.includes(-1)) {
+            feedback.textContent = "Please answer all questions!";
+            feedback.classList.add('text-amber-600');
+            return;
+        }
+
+        let correctCount = t5Answers.filter(a => a === 1).length;
+        let total = t5Answers.length;
+
+        // Visual feedback on buttons
+        document.querySelectorAll('.quiz-q').forEach((block, index) => {
+            const selectedBtn = block.querySelector('.bg-cyan-100');
+            if (selectedBtn) {
+                if (t5Answers[index] === 1) {
+                    selectedBtn.classList.replace('bg-cyan-100', 'bg-green-200');
+                    selectedBtn.classList.replace('border-cyan-400', 'border-green-500');
+                    selectedBtn.classList.replace('ring-cyan-500', 'ring-green-500');
+                } else {
+                    selectedBtn.classList.replace('bg-cyan-100', 'bg-red-200');
+                    selectedBtn.classList.replace('border-cyan-400', 'border-red-500');
+                    selectedBtn.classList.replace('ring-cyan-500', 'ring-red-500');
+                }
+            }
+        });
+
+        if (correctCount === total) {
+            feedback.innerHTML = '<i class="fas fa-check-circle"></i> Perfect! You mastered the azonal forests.';
+            feedback.classList.add('text-green-600');
+        } else {
+            feedback.innerHTML = `<i class="fas fa-times-circle"></i> You got ${correctCount} out of ${total} correct. Review and try again!`;
+            feedback.classList.add('text-red-600');
+            // Reset state to allow trying again
+            t5Answers = [-1, -1, -1];
         }
     }
 </script>
