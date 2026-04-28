@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forest Ecology of the Carpathian Basin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- SortableJS for smooth touch-friendly drag and drop -->
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0fdf4; }
+        .drag-item { cursor: grab; transition: transform 0.2s; }
+        .drag-item:active { cursor: grabbing; transform: scale(1.02); }
+        .sortable-ghost { opacity: 0.4; background-color: #e2e8f0; }
+        .sortable-drag { background-color: #fff; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .correct-anim { animation: pulse-green 1s; border-color: #22c55e !important; background-color: #dcfce7 !important; color: #166534 !important; }
+        .incorrect-anim { animation: shake-red 0.5s; border-color: #ef4444 !important; background-color: #fee2e2 !important; color: #991b1b !important;}
+        
+        @keyframes pulse-green {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        @keyframes shake-red {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+        select { appearance: none; background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%2316a34a%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E"); background-repeat: no-repeat; background-position: right .7rem top 50%; background-size: .65rem auto; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+<div class="max-w-4xl mx-auto p-4 md:p-8">
+    <!-- Header -->
+    <header class="bg-green-700 text-white rounded-2xl p-8 mb-8 shadow-lg text-center">
+        <i class="fas fa-tree text-5xl mb-4 text-green-200"></i>
+        <h1 class="text-3xl md:text-4xl font-bold mb-2">Forest Ecology of the Carpathian Basin</h1>
+        <p class="text-green-100 text-lg">Interactive Deep Learning Tasks based on Hungarian Flora</p>
+    </header>
+
+    <!-- Reading Context Dropdown -->
+    <details class="bg-white rounded-xl shadow-md p-6 mb-8 border border-green-100 cursor-pointer group">
+        <summary class="font-bold text-xl text-green-800 list-none flex justify-between items-center">
+            <span><i class="fas fa-book-open mr-2"></i> Review English Terminology (Click to expand)</span>
+            <i class="fas fa-chevron-down transition-transform group-open:rotate-180"></i>
+        </summary>
+        <div class="mt-4 text-slate-600 space-y-3 cursor-text">
+            <p>Before you begin, review the key English terms for Hungarian forest associations:</p>
+            <ul class="list-disc pl-5 space-y-1">
+                <li><strong>Climazonal Forests:</strong> Determined by temperature and rainfall. Includes <em>Turkey oak-sessile oak</em> (cseres-tölgyes), <em>Hornbeam-oak</em> (gyertyános-tölgyes), and <em>Beech</em> (bükkös).</li>
+                <li><strong>Azonal Forests:</strong> Determined by water or topography. Includes <em>Gallery/Riparian forests</em> (ligeterdők), <em>Swamp forests</em> (láperdők), and <em>Sand forests</em> (homoki erdők).</li>
+                <li><strong>Planted / Non-native Forests:</strong> Planted by humans, often damaging the ecosystem. Includes <em>Pine plantations</em> (fenyves ültetvények) and <em>Black locust</em> (fehér akác).</li>
+                <li><strong>Canopy:</strong> The upper layer of leaves in a forest (lombkoronaszint).</li>
+                <li><strong>Shrub layer / Herb layer:</strong> The lower levels of plants (cserjeszint / gyepszint).</li>
+            </ul>
+        </div>
+    </details>
+
+    <!-- Task 1: Categorization -->
+    <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-blue-500"></div>
+        <h2 class="text-2xl font-bold mb-2 text-blue-800">Task 1: Ecological Classification</h2>
+        <p class="text-slate-600 mb-6">Drag the forest types from the word bank and drop them into their correct ecological category.</p>
+
+        <!-- Word Bank -->
+        <div class="bg-slate-100 p-4 rounded-lg border border-slate-300 mb-6 min-h-[60px]" id="t1-wordbank">
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 inline-block m-1 font-medium" data-type="climazonal">Beech forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 inline-block m-1 font-medium" data-type="azonal">Gallery (Riparian) forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 inline-block m-1 font-medium" data-type="planted">Black locust (Acacia)</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 inline-block m-1 font-medium" data-type="climazonal">Hornbeam-oak forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 inline-block m-1 font-medium" data-type="planted">Pine plantations</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 inline-block m-1 font-medium" data-type="azonal">Sand forest</div>
+        </div>
+
+        <!-- Drop Zones -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="bg-blue-50 p-4 rounded-lg border-2 border-blue-200">
+                <h3 class="font-bold text-center text-blue-700 mb-3 border-b border-blue-200 pb-2">Climazonal Forests</h3>
+                <div id="t1-zone-climazonal" class="min-h-[120px] flex flex-col gap-2" data-target="climazonal"></div>
+            </div>
+            <div class="bg-amber-50 p-4 rounded-lg border-2 border-amber-200">
+                <h3 class="font-bold text-center text-amber-700 mb-3 border-b border-amber-200 pb-2">Azonal Forests</h3>
+                <div id="t1-zone-azonal" class="min-h-[120px] flex flex-col gap-2" data-target="azonal"></div>
+            </div>
+            <div class="bg-purple-50 p-4 rounded-lg border-2 border-purple-200">
+                <h3 class="font-bold text-center text-purple-700 mb-3 border-b border-purple-200 pb-2">Planted / Non-Native</h3>
+                <div id="t1-zone-planted" class="min-h-[120px] flex flex-col gap-2" data-target="planted"></div>
+            </div>
+        </div>
+        
+        <div class="mt-6 flex justify-between items-center">
+            <button onclick="checkTask1()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                Check Classification
+            </button>
+            <span id="t1-feedback" class="font-bold hidden"></span>
+        </div>
+    </section>
+
+    <!-- Task 2: Sequencing -->
+    <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-emerald-500"></div>
+        <h2 class="text-2xl font-bold mb-2 text-emerald-800">Task 2: Altitude Sequencing</h2>
+        <p class="text-slate-600 mb-6">Arrange these climazonal forests in order of altitude, from the <strong>lowest elevation (plains/foothills) at the top</strong> to the <strong>highest elevation (mountain peaks) at the bottom</strong>.</p>
+
+        <div class="flex flex-col md:flex-row gap-6 items-center md:items-stretch">
+            <!-- Altitude Indicator -->
+            <div class="hidden md:flex flex-col justify-between items-center bg-emerald-100 w-12 rounded-full py-4 relative">
+                <i class="fas fa-mountain text-emerald-700 mt-2"></i>
+                <div class="h-full w-1 bg-emerald-300 absolute z-0 left-1/2 -translate-x-1/2"></div>
+                <div class="z-10 flex flex-col h-full justify-between items-center text-xs font-bold text-emerald-800 py-6">
+                    <span>HIGH</span>
+                    <span>LOW</span>
+                </div>
+            </div>
+            
+            <!-- Sortable List -->
+            <div id="t2-sequence" class="flex-grow w-full space-y-3">
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="3">
+                    <span class="font-medium text-lg">Hornbeam-oak forest</span>
+                    <i class="fas fa-grip-lines text-slate-400"></i>
+                </div>
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="4">
+                    <span class="font-medium text-lg">Beech forest</span>
+                    <i class="fas fa-grip-lines text-slate-400"></i>
+                </div>
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="1">
+                    <span class="font-medium text-lg">Tatar maple-loess oak</span>
+                    <i class="fas fa-grip-lines text-slate-400"></i>
+                </div>
+                <div class="drag-item bg-white p-4 rounded-lg shadow border border-slate-200 flex items-center justify-between" data-order="2">
+                    <span class="font-medium text-lg">Turkey oak-sessile oak</span>
+                    <i class="fas fa-grip-lines text-slate-400"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="mt-6 flex justify-between items-center">
+            <button onclick="checkTask2()" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                Check Sequence
+            </button>
+            <span id="t2-feedback" class="font-bold hidden"></span>
+        </div>
+    </section>
+
+    <!-- Task 3: Contextual Cloze -->
+    <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-rose-500"></div>
+        <h2 class="text-2xl font-bold mb-2 text-rose-800">Task 3: Ecological Impact Analysis</h2>
+        <p class="text-slate-600 mb-6">Read the text about planted forests. Select the correct English terminology from the drop-down menus to complete the ecological analysis based on the Hungarian source text.</p>
+
+        <div class="bg-rose-50 p-6 rounded-lg border border-rose-100 text-lg leading-relaxed text-slate-800">
+            While natural woodland associations remain stable over time, 
+            <select id="t3-q1" class="border-2 border-rose-300 rounded px-3 py-1 bg-white focus:ring-2 focus:ring-rose-500 outline-none mx-1 text-base font-semibold text-rose-700">
+                <option value="">-- select --</option>
+                <option value="wrong">climazonal</option>
+                <option value="correct">planted</option>
+                <option value="wrong">endemic</option>
+            </select>
+            forests often cause severe ecological damage. The North American Black locust tree, introduced in the 18th century, grows very quickly. However, it severely 
+            <select id="t3-q2" class="border-2 border-rose-300 rounded px-3 py-1 bg-white focus:ring-2 focus:ring-rose-500 outline-none mx-1 text-base font-semibold text-rose-700">
+                <option value="">-- select --</option>
+                <option value="correct">depletes</option>
+                <option value="wrong">enriches</option>
+                <option value="wrong">irrigates</option>
+            </select>
+            the soil of nutrients. Furthermore, it creates an excess of 
+            <select id="t3-q3" class="border-2 border-rose-300 rounded px-3 py-1 bg-white focus:ring-2 focus:ring-rose-500 outline-none mx-1 text-base font-semibold text-rose-700">
+                <option value="">-- select --</option>
+                <option value="wrong">oxygen</option>
+                <option value="correct">nitrogen</option>
+                <option value="wrong">carbon</option>
+            </select>
+            in the ground, which leads to heavy weed growth while failing to produce useful humus. Similarly, forced pine plantations change the soil acidity. Because their needles undergo very slow 
+            <select id="t3-q4" class="border-2 border-rose-300 rounded px-3 py-1 bg-white focus:ring-2 focus:ring-rose-500 outline-none mx-1 text-base font-semibold text-rose-700">
+                <option value="">-- select --</option>
+                <option value="wrong">photosynthesis</option>
+                <option value="wrong">germination</option>
+                <option value="correct">decomposition</option>
+            </select>,
+            the cleared land becomes unsuitable for original native species to return.
+        </div>
+
+        <div class="mt-6 flex justify-between items-center">
+            <button onclick="checkTask3()" class="bg-rose-600 hover:bg-rose-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                Verify Analysis
+            </button>
+            <span id="t3-feedback" class="font-bold hidden"></span>
+        </div>
+    </section>
+
+</div>
+
+<script>
+    // Initialize Sortable logic for Task 1 (Drag and Drop categories)
+    const t1SharedOptions = {
+        group: 'shared', 
+        animation: 150,
+        ghostClass: 'sortable-ghost',
+        dragClass: 'sortable-drag'
+    };
+    
+    new Sortable(document.getElementById('t1-wordbank'), t1SharedOptions);
+    new Sortable(document.getElementById('t1-zone-climazonal'), t1SharedOptions);
+    new Sortable(document.getElementById('t1-zone-azonal'), t1SharedOptions);
+    new Sortable(document.getElementById('t1-zone-planted'), t1SharedOptions);
+
+    function checkTask1() {
+        const zones = ['climazonal', 'azonal', 'planted'];
+        let allCorrect = true;
+        let totalItems = 0;
+
+        zones.forEach(zone => {
+            const container = document.getElementById(`t1-zone-${zone}`);
+            const items = container.querySelectorAll('.drag-item');
+            totalItems += items.length;
+            
+            items.forEach(item => {
+                item.classList.remove('correct-anim', 'incorrect-anim');
+                // Trigger reflow to restart animation
+                void item.offsetWidth;
+                
+                if(item.dataset.type === zone) {
+                    item.classList.add('correct-anim');
+                } else {
+                    item.classList.add('incorrect-anim');
+                    allCorrect = false;
+                }
+            });
+        });
+
+        const feedback = document.getElementById('t1-feedback');
+        feedback.classList.remove('hidden', 'text-green-600', 'text-red-600');
+        
+        if (totalItems < 6) {
+            feedback.textContent = "Please categorize all items!";
+            feedback.classList.add('text-amber-600');
+        } else if (allCorrect) {
+            feedback.innerHTML = '<i class="fas fa-check-circle"></i> Excellent mapping!';
+            feedback.classList.add('text-green-600');
+        } else {
+            feedback.innerHTML = '<i class="fas fa-times-circle"></i> Some classifications are incorrect. Try again!';
+            feedback.classList.add('text-red-600');
+        }
+    }
+
+    // Initialize Sortable logic for Task 2 (Sequence)
+    new Sortable(document.getElementById('t2-sequence'), {
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
+
+    function checkTask2() {
+        const container = document.getElementById('t2-sequence');
+        const items = container.querySelectorAll('.drag-item');
+        let isCorrect = true;
+        
+        items.forEach((item, index) => {
+            item.classList.remove('correct-anim', 'incorrect-anim');
+            void item.offsetWidth; // trigger reflow
+            
+            // Expected order: 1, 2, 3, 4
+            if (parseInt(item.dataset.order) === index + 1) {
+                item.classList.add('correct-anim');
+            } else {
+                item.classList.add('incorrect-anim');
+                isCorrect = false;
+            }
+        });
+
+        const feedback = document.getElementById('t2-feedback');
+        feedback.classList.remove('hidden', 'text-green-600', 'text-red-600');
+        
+        if (isCorrect) {
+            feedback.innerHTML = '<i class="fas fa-check-circle"></i> Perfect sequence!';
+            feedback.classList.add('text-green-600');
+        } else {
+            feedback.innerHTML = '<i class="fas fa-times-circle"></i> Check the altitude order. Remember: Lowest altitude at the top!';
+            feedback.classList.add('text-red-600');
+        }
+    }
+
+    // Logic for Task 3 (Fill in the blanks)
+    function checkTask3() {
+        let allCorrect = true;
+        let allFilled = true;
+
+        for (let i = 1; i <= 4; i++) {
+            const select = document.getElementById(`t3-q${i}`);
+            select.classList.remove('correct-anim', 'incorrect-anim');
+            void select.offsetWidth;
+            
+            if (select.value === "") {
+                allFilled = false;
+                allCorrect = false;
+            } else if (select.value === "correct") {
+                select.classList.add('correct-anim');
+            } else {
+                select.classList.add('incorrect-anim');
+                allCorrect = false;
+            }
+        }
+
+        const feedback = document.getElementById('t3-feedback');
+        feedback.classList.remove('hidden', 'text-green-600', 'text-red-600', 'text-amber-600');
+        
+        if (!allFilled) {
+            feedback.textContent = "Please fill in all the blanks!";
+            feedback.classList.add('text-amber-600');
+        } else if (allCorrect) {
+            feedback.innerHTML = '<i class="fas fa-check-circle"></i> Excellent ecological analysis!';
+            feedback.classList.add('text-green-600');
+        } else {
+            feedback.innerHTML = '<i class="fas fa-times-circle"></i> Read carefully and try again.';
+            feedback.classList.add('text-red-600');
+        }
+    }
+</script>
+
+</body>
+</html>
