@@ -190,6 +190,58 @@
         </div>
     </section>
 
+    <!-- Task 4: Bilingual Matching -->
+    <section class="bg-white rounded-xl shadow-md p-6 mb-8 border border-slate-200 relative overflow-hidden">
+        <div class="absolute top-0 left-0 w-2 h-full bg-indigo-500"></div>
+        <h2 class="text-2xl font-bold mb-2 text-indigo-800">Task 4: Bilingual Vocabulary Matching</h2>
+        <p class="text-slate-600 mb-6">Drag the English terms from the word bank and drop them into the empty slots next to their correct Hungarian equivalents.</p>
+
+        <!-- English Word Bank -->
+        <div class="bg-slate-100 p-4 rounded-lg border border-slate-300 mb-6 min-h-[60px] flex flex-wrap gap-2" id="t4-wordbank">
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="hornbeam">Hornbeam-oak forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="pine">Scots pine</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="beech">Beech forest</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="turkey">Turkey oak-sessile oak</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="acacia">Black locust</div>
+            <div class="drag-item bg-white px-4 py-2 rounded shadow-sm border border-slate-200 font-medium" data-match="riparian">Riparian (Gallery) forest</div>
+        </div>
+
+        <!-- Matching Grid -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-4">
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Bükkös</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-beech"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Gyertyános-tölgyes</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-hornbeam"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Cseres-tölgyes</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-turkey"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Ligeterdő</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-riparian"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Fehér akác</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-acacia"></div>
+            </div>
+            <div class="flex items-center gap-3">
+                <div class="w-1/2 bg-indigo-50 p-3 rounded font-semibold text-indigo-900 border border-indigo-200 text-right">Erdeifenyő</div>
+                <div class="w-1/2 min-h-[46px] bg-slate-50 border-2 border-dashed border-slate-300 rounded flex items-center justify-center p-1" id="t4-zone-pine"></div>
+            </div>
+        </div>
+
+        <div class="mt-8 flex justify-between items-center">
+            <button onclick="checkTask4()" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-2 px-6 rounded-lg transition-colors shadow-md">
+                Check Matches
+            </button>
+            <span id="t4-feedback" class="font-bold hidden"></span>
+        </div>
+    </section>
+
 </div>
 
 <script>
@@ -313,6 +365,66 @@
             feedback.classList.add('text-green-600');
         } else {
             feedback.innerHTML = '<i class="fas fa-times-circle"></i> Read carefully and try again.';
+            feedback.classList.add('text-red-600');
+        }
+    }
+
+    // Initialize Sortable logic for Task 4 (Bilingual Vocabulary)
+    new Sortable(document.getElementById('t4-wordbank'), {
+        group: 'vocab',
+        animation: 150,
+        ghostClass: 'sortable-ghost'
+    });
+
+    const vocabZones = ['beech', 'hornbeam', 'turkey', 'riparian', 'acacia', 'pine'];
+    vocabZones.forEach(zone => {
+        new Sortable(document.getElementById(`t4-zone-${zone}`), {
+            group: {
+                name: 'vocab',
+                put: function (to) {
+                    return to.el.children.length < 1; // Only allow 1 item per drop zone
+                }
+            },
+            animation: 150,
+            ghostClass: 'sortable-ghost'
+        });
+    });
+
+    function checkTask4() {
+        let allCorrect = true;
+        let totalItems = 0;
+
+        vocabZones.forEach(zone => {
+            const container = document.getElementById(`t4-zone-${zone}`);
+            const item = container.querySelector('.drag-item');
+            
+            if (item) {
+                totalItems++;
+                item.classList.remove('correct-anim', 'incorrect-anim');
+                void item.offsetWidth; // trigger reflow
+                
+                if (item.dataset.match === zone) {
+                    item.classList.add('correct-anim');
+                } else {
+                    item.classList.add('incorrect-anim');
+                    allCorrect = false;
+                }
+            } else {
+                allCorrect = false;
+            }
+        });
+
+        const feedback = document.getElementById('t4-feedback');
+        feedback.classList.remove('hidden', 'text-green-600', 'text-red-600', 'text-amber-600');
+        
+        if (totalItems < vocabZones.length) {
+            feedback.textContent = "Please match all the terms!";
+            feedback.classList.add('text-amber-600');
+        } else if (allCorrect) {
+            feedback.innerHTML = '<i class="fas fa-check-circle"></i> Outstanding vocabulary mastery!';
+            feedback.classList.add('text-green-600');
+        } else {
+            feedback.innerHTML = '<i class="fas fa-times-circle"></i> Some matches are incorrect. Try again!';
             feedback.classList.add('text-red-600');
         }
     }
